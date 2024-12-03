@@ -30,33 +30,30 @@ class _CovidPageState extends State<CovidPage> {
   Widget _buildListCovid() {
     return Container(
       margin: EdgeInsets.all(8.0),
-      child: BlocProvider(
-        create: (_) => _newsBloc,
-        child: BlocListener<CovidBloc, CovidState>(
-          listener: (context, state) {
-            if (state is CovidError) {
-              ScaffoldMessenger.of(context).showSnackBar(
-                SnackBar(
-                  content: Text(state.message!),
-                ),
-              );
+      child: BlocListener<CovidBloc, CovidState>(
+        listener: (context, state) {
+          if (state is CovidError) {
+            ScaffoldMessenger.of(context).showSnackBar(
+              SnackBar(
+                content: Text(state.message!),
+              ),
+            );
+          }
+        },
+        child: BlocBuilder<CovidBloc, CovidState>(
+          builder: (context, state) {
+            if (state is CovidInitial) {
+              return _buildLoading();
+            } else if (state is CovidLoading) {
+              return _buildLoading();
+            } else if (state is CovidLoaded) {
+              return _buildCard(context, state.covidModel);
+            } else if (state is CovidError) {
+              return Container();
+            } else {
+              return Container();
             }
           },
-          child: BlocBuilder<CovidBloc, CovidState>(
-            builder: (context, state) {
-              if (state is CovidInitial) {
-                return _buildLoading();
-              } else if (state is CovidLoading) {
-                return _buildLoading();
-              } else if (state is CovidLoaded) {
-                return _buildCard(context, state.covidModel);
-              } else if (state is CovidError) {
-                return Container();
-              } else {
-                return Container();
-              }
-            },
-          ),
         ),
       ),
     );
