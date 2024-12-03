@@ -1,4 +1,3 @@
-import 'package:bloc_api/model/product_list_model.dart';
 import 'package:bloc_api/screens/master_products/bloc/product_bloc.dart';
 import 'package:bloc_api/screens/master_products/bloc/product_event.dart';
 import 'package:bloc_api/screens/master_products/bloc/product_state.dart';
@@ -15,28 +14,47 @@ class MasterProducts extends StatefulWidget {
 
 class _MasterProductsState extends State<MasterProducts> {
   late ProductBloc productBloc;
+  ScrollController scrollController = ScrollController();
   @override
   void initState() {
+    scrollController.addListener(() {
+      _scrollListener();
+    });
+
+    productBloc = BlocProvider.of<ProductBloc>(context, listen: false);
     WidgetsBinding.instance.addPostFrameCallback((_) async {});
-    fetchProduct();
+    // fetchProduct();
     super.initState();
   }
 
   fetchProduct() {
-    context.read<ProductBloc>().add(ResetProductEvent());
-    context
-        .read<ProductBloc>()
-        .add(ProductFetchEvent(businessid: 26, queryParameters: {
-          "page": context.read<ProductBloc>().currentPage + 1,
-          "limit": context.read<ProductBloc>().limit,
-        }));
+    productBloc.add(ResetProductEvent());
+    productBloc.add(ProductFetchEvent(businessid: 26, queryParameters: {
+      "page": productBloc.currentPage + 1,
+      "limit": productBloc.limit,
+    }));
   }
 
-  loadMore() {}
+  loadMore() {
+    productBloc.add(ProductFetchEvent(businessid: 26, queryParameters: {
+      "page": productBloc.currentPage + 1,
+      "limit": productBloc.limit,
+    }));
+  }
+
+  _scrollListener() {
+    if (scrollController.position.pixels ==
+        (scrollController.position.maxScrollExtent)) {
+      if (productBloc.currentPage < productBloc.totalPages) {
+        loadMore();
+      }
+    }
+  }
 
   @override
   void dispose() {
     super.dispose();
+    productBloc.add(ResetProductEvent());
   }
 
   @override
@@ -53,6 +71,7 @@ class _MasterProductsState extends State<MasterProducts> {
         body: BlocConsumer<ProductBloc, ProductState>(
           listener: (context, state) {},
           builder: (context, state) {
+            debugPrint("-----?? build");
             if (state is ProductLoadingState) {
               return const Center(child: CircularProgressIndicator());
             } else if (state is ProductLoadedState) {
