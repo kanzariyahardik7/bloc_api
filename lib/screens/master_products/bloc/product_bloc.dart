@@ -1,6 +1,6 @@
 import 'package:bloc_api/model/product_list_model.dart';
-import 'package:bloc_api/network/api_response.dart';
-import 'package:bloc_api/repo/product_repository.dart';
+import 'package:bloc_api/resource/api_response.dart';
+import 'package:bloc_api/repository/product_repository.dart';
 import 'package:bloc_api/screens/master_products/bloc/product_event.dart';
 import 'package:bloc_api/screens/master_products/bloc/product_state.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';

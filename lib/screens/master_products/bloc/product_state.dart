@@ -1,5 +1,5 @@
 import 'package:bloc_api/model/product_list_model.dart';
-import 'package:bloc_api/network/api_response.dart';
+import 'package:bloc_api/resource/api_response.dart';
 import 'package:equatable/equatable.dart';
 
 abstract class ProductState extends Equatable {}

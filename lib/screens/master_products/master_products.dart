@@ -23,7 +23,7 @@ class _MasterProductsState extends State<MasterProducts> {
 
     productBloc = BlocProvider.of<ProductBloc>(context, listen: false);
     WidgetsBinding.instance.addPostFrameCallback((_) async {});
-    // fetchProduct();
+    fetchProduct();
     super.initState();
   }
 

@@ -1,5 +1,5 @@
 import 'package:bloc_api/model/product_list_model.dart';
-import 'package:bloc_api/network/api_end_points.dart';
+import 'package:bloc_api/resource/api_end_points.dart';
 import 'package:bloc_api/network/network_api_service.dart';
 
 class ProductRepository {

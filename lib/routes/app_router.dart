@@ -1,5 +1,7 @@
 import 'package:bloc_api/screens/home/home_screens.dart';
+import 'package:bloc_api/screens/login/login.dart';
 import 'package:bloc_api/screens/master_products/master_products.dart';
+import 'package:bloc_api/screens/splash/splash_screen.dart';
 import 'package:go_router/go_router.dart';
 
 class AppRouter {
@@ -7,11 +9,19 @@ class AppRouter {
     routes: [
       GoRoute(
         path: '/',
+        builder: (context, state) => const SplashScreen(),
+      ),
+      GoRoute(
+        path: '/home',
         builder: (context, state) => const HomeScreens(),
       ),
       GoRoute(
         path: '/product',
         builder: (context, state) => const MasterProducts(),
+      ),
+      GoRoute(
+        path: '/login',
+        builder: (context, state) => const Login(),
       ),
       // GoRoute(
       //   path: '/register',

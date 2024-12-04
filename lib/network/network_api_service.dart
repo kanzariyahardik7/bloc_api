@@ -1,7 +1,7 @@
 import 'dart:convert';
 import 'dart:io';
-import 'package:bloc_api/network/api_end_points.dart';
-import 'package:bloc_api/network/app_exception.dart';
+import 'package:bloc_api/resource/api_end_points.dart';
+import 'package:bloc_api/resource/app_exception.dart';
 import 'package:bloc_api/network/base_api_service.dart';
 import 'package:dio/dio.dart';
 import 'package:pretty_dio_logger/pretty_dio_logger.dart';
