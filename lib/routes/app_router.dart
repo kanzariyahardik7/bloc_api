@@ -1,6 +1,8 @@
 import 'package:bloc_api/screens/home/home_screens.dart';
 import 'package:bloc_api/screens/login/login.dart';
 import 'package:bloc_api/screens/master_products/master_products.dart';
+import 'package:bloc_api/screens/music_details/music_details.dart';
+import 'package:bloc_api/screens/music_list/music_list.dart';
 import 'package:bloc_api/screens/splash/splash_screen.dart';
 import 'package:go_router/go_router.dart';
 
@@ -23,10 +25,11 @@ class AppRouter {
         path: '/login',
         builder: (context, state) => const Login(),
       ),
-      // GoRoute(
-      //   path: '/register',
-      //   builder: (context, state) => const Register(),
-      // ),
+      GoRoute(
+        path: '/musiclist',
+        builder: (context, state) => const MusicList(),
+      ),
+
       // GoRoute(
       //   path: '/bussiness/:bussinessId/:bussinessName',
       //   builder: (context, state) {

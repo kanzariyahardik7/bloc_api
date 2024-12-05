@@ -39,6 +39,22 @@ class _HomeScreensState extends State<HomeScreens> {
                   ),
                 ),
               ),
+            ),
+            InkWell(
+              onTap: () {
+                context.push("/musiclist");
+              },
+              child: Container(
+                color: Colors.red,
+                height: 150,
+                width: MediaQuery.sizeOf(context).width,
+                child: const Center(
+                  child: Text(
+                    "Music List",
+                    style: TextStyle(color: Colors.white, fontSize: 18),
+                  ),
+                ),
+              ),
             )
           ],
         ),

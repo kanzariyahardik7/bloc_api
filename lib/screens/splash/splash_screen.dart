@@ -20,7 +20,8 @@ class _SplashScreenState extends State<SplashScreen> {
     Future.delayed(
       const Duration(seconds: 2),
       () {
-        context.pushReplacement("/login");
+        // context.pushReplacement("/login");
+        context.pushReplacement("/home");
       },
     );
   }
