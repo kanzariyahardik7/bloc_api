@@ -1,3 +1,5 @@
+import 'package:audio_service/audio_service.dart';
+import 'package:bloc_api/screens/music_details/audio_handler.dart';
 import 'package:bloc_api/screens/music_details/music_details.dart';
 import 'package:flutter/material.dart';
 import 'package:on_audio_query/on_audio_query.dart';
@@ -15,10 +17,12 @@ class _MusicListState extends State<MusicList> {
 
   // Indicate if application has permission to the library.
   bool _hasPermission = false;
+  late AudioPlayerHandler audioPlayerHandler;
 
   @override
   void initState() {
     super.initState();
+    audioPlayerHandler = AudioPlayerHandler();
     // (Optinal) Set logging level. By default will be set to 'WARN'.
     //
     // Log will appear on:
@@ -81,6 +85,15 @@ class _MusicListState extends State<MusicList> {
                     itemBuilder: (context, index) {
                       return ListTile(
                         onTap: () {
+                          final mediaItem = MediaItem(
+                            id: item.data![index].data,
+                            title: item.data![index].title,
+                            artist: item.data![index].artist,
+                          );
+                          audioPlayerHandler.loadMediaItem(
+                              mediaItem, mediaItem.id);
+                          // audioPlayerHandler.play();
+
                           Navigator.push(
                               context,
                               MaterialPageRoute(
@@ -88,7 +101,7 @@ class _MusicListState extends State<MusicList> {
                                   filepath: item.data![index].data,
                                 ),
                               ));
-                          // debugPrint("name ---?? ${item.data![index].title}");
+                          debugPrint("name ---?? ${item.data![index].title}");
                         },
                         title: Text(item.data![index].title),
                         subtitle: Text(item.data![index].artist ?? "No Artist"),

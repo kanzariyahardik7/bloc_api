@@ -50,6 +50,7 @@ dependencies:
   audio_session: ^0.1.21
   just_audio: ^0.9.42
   rxdart: ^0.28.0
+  audio_service: ^0.18.15
 
 dev_dependencies:
   flutter_test:
