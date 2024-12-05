@@ -65,7 +65,7 @@ class _MusicDetailsState extends State<MusicDetails>
       // Release the player's resources when not in use. We use "stop" so that
       // if the app resumes later, it will still remember what position to
       // resume from.
-      _player.stop();
+      // _player.pause();
     }
   }
 
