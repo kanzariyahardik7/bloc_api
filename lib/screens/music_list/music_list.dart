@@ -85,15 +85,6 @@ class _MusicListState extends State<MusicList> {
                     itemBuilder: (context, index) {
                       return ListTile(
                         onTap: () {
-                          final mediaItem = MediaItem(
-                            id: item.data![index].data,
-                            title: item.data![index].title,
-                            artist: item.data![index].artist,
-                          );
-                          audioPlayerHandler.loadMediaItem(
-                              mediaItem, mediaItem.id);
-                          // audioPlayerHandler.play();
-
                           Navigator.push(
                               context,
                               MaterialPageRoute(

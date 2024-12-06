@@ -1,6 +1,9 @@
+import 'package:bloc_api/screens/login/bloc/login_bloc.dart';
+import 'package:bloc_api/screens/login/bloc/login_event.dart';
 import 'package:bloc_api/widget/colors.dart';
 import 'package:bloc_api/widget/mytext.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 class Login extends StatefulWidget {
   const Login({super.key});
@@ -56,7 +59,9 @@ class _LoginState extends State<Login> {
                     padding: const EdgeInsets.symmetric(
                         horizontal: 15, vertical: 10),
                     child: ElevatedButton(
-                      onPressed: () {},
+                      onPressed: () {
+                        getOtpApi();
+                      },
                       style: ElevatedButton.styleFrom(
                           padding: const EdgeInsets.symmetric(
                               vertical: 5, horizontal: 45),
@@ -82,7 +87,9 @@ class _LoginState extends State<Login> {
                     padding: const EdgeInsets.symmetric(
                         horizontal: 15, vertical: 10),
                     child: ElevatedButton(
-                      onPressed: () {},
+                      onPressed: () {
+                        verifyOtpApi();
+                      },
                       style: ElevatedButton.styleFrom(
                           padding: const EdgeInsets.symmetric(
                               vertical: 5, horizontal: 45),
@@ -167,9 +174,20 @@ class _LoginState extends State<Login> {
     );
   }
 
-  loginApi() {
+  getOtpApi() {
+    final productBloc = BlocProvider.of<LoginBloc>(context);
     Map<String, dynamic> map = {
       "mobile_number": '+91${mobileNumberController.text.trim()}'
     };
+    productBloc.add(LoginOtpGetEvent(map: map));
+  }
+
+  verifyOtpApi() {
+    final productBloc = BlocProvider.of<LoginBloc>(context);
+    Map<String, dynamic> map = {
+      "mobile_number": '+91${mobileNumberController.text.trim()}',
+      "otp": otpController.text.trim()
+    };
+    productBloc.add(LoginOtpVerifyEvent(context: context, map: map));
   }
 }

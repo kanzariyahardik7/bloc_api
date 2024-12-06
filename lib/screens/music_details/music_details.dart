@@ -1,10 +1,11 @@
-import 'dart:io';
-
+import 'package:audio_service/audio_service.dart';
 import 'package:audio_session/audio_session.dart';
+import 'package:bloc_api/screens/music_details/audio_handler.dart';
 import 'package:bloc_api/screens/music_details/commin.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:just_audio/just_audio.dart';
+import 'package:on_audio_query/on_audio_query.dart';
 import 'package:rxdart/rxdart.dart';
 
 class MusicDetails extends StatefulWidget {
@@ -18,10 +19,12 @@ class MusicDetails extends StatefulWidget {
 class _MusicDetailsState extends State<MusicDetails>
     with WidgetsBindingObserver {
   final _player = AudioPlayer();
+  late AudioPlayerHandler audioPlayerHandler;
 
   @override
   void initState() {
     super.initState();
+   
     ambiguate(WidgetsBinding.instance)!.addObserver(this);
     SystemChrome.setSystemUIOverlayStyle(const SystemUiOverlayStyle(
       statusBarColor: Colors.black,
