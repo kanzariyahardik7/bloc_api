@@ -1,9 +1,8 @@
-import 'package:bloc_api/screens/home/home_screens.dart';
-import 'package:bloc_api/screens/login/login.dart';
-import 'package:bloc_api/screens/master_products/master_products.dart';
-import 'package:bloc_api/screens/music_details/music_details.dart';
-import 'package:bloc_api/screens/music_list/music_list.dart';
-import 'package:bloc_api/screens/splash/splash_screen.dart';
+import 'package:bloc_api/features/home/home_screens.dart';
+import 'package:bloc_api/features/login/screen/login.dart';
+import 'package:bloc_api/features/master_products/master_products.dart';
+import 'package:bloc_api/features/music_list/music_list.dart';
+import 'package:bloc_api/features/splash/splash_screen.dart';
 import 'package:go_router/go_router.dart';
 
 class AppRouter {

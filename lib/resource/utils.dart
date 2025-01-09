@@ -1,4 +1,4 @@
-import 'package:bloc_api/widget/colors.dart';
+import 'package:bloc_api/resource/colors.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 
