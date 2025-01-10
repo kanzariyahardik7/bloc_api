@@ -1,4 +1,4 @@
-import 'package:bloc_api/model/media_model.dart';
+import 'package:bloc_api/features/master_products/model/media_model.dart';
 
 class ProductListModel {
   Data? data;

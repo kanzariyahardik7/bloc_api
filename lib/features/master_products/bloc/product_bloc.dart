@@ -45,7 +45,7 @@ class ProductBloc extends Bloc<ProductEvent, ProductState> {
   }
 
   _resetProductEvent(ResetProductEvent event, Emitter<ProductState> emit) {
-    productList.clear();
+    productList = [];
     currentPage = 0;
     totalPages = 0;
     totalItems = 0;

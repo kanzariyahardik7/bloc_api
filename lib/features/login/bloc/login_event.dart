@@ -10,12 +10,3 @@ class LoginOtpGetEvent extends LoginEvent {
   @override
   List<Object?> get props => [map];
 }
-
-class LoginOtpVerifyEvent extends LoginEvent {
-  final Map<String, dynamic> map;
-  final BuildContext context;
-  LoginOtpVerifyEvent({required this.map, required this.context});
-
-  @override
-  List<Object?> get props => [map];
-}

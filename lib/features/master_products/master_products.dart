@@ -22,10 +22,11 @@ class _MasterProductsState extends State<MasterProducts> {
       _scrollListener();
     });
 
-    productBloc = getIt.get<ProductBloc>();
-    // BlocProvider.of<ProductBloc>(context, listen: false);
-    WidgetsBinding.instance.addPostFrameCallback((_) async {});
-    fetchProduct();
+    productBloc = BlocProvider.of<ProductBloc>(context, listen: false);
+    WidgetsBinding.instance.addPostFrameCallback((_) async {
+      fetchProduct();
+    });
+
     super.initState();
   }
 
@@ -71,9 +72,15 @@ class _MasterProductsState extends State<MasterProducts> {
           ),
         ),
         body: BlocConsumer<ProductBloc, ProductState>(
-          listener: (context, state) {},
+          listener: (context, state) {
+            if (state is ProductErrorState) {
+              ScaffoldMessenger.of(context).showSnackBar(
+                SnackBar(
+                    content: Text(state.productListResponse.message ?? "")),
+              );
+            }
+          },
           builder: (context, state) {
-            debugPrint("-----?? build");
             if (state is ProductLoadingState) {
               return const Center(child: CircularProgressIndicator());
             } else if (state is ProductLoadedState) {

@@ -2,6 +2,7 @@ import 'package:bloc_api/features/home/home_screens.dart';
 import 'package:bloc_api/features/login/screen/login.dart';
 import 'package:bloc_api/features/master_products/master_products.dart';
 import 'package:bloc_api/features/music_list/music_list.dart';
+import 'package:bloc_api/features/otp_verify/screen/otp_verify_screen.dart';
 import 'package:bloc_api/features/splash/splash_screen.dart';
 import 'package:go_router/go_router.dart';
 
@@ -27,6 +28,14 @@ class AppRouter {
       GoRoute(
         path: '/musiclist',
         builder: (context, state) => const MusicList(),
+      ),
+      GoRoute(
+        path: '/otp-verify/:mobileNumber',
+        builder: (context, state) {
+          return OtpVerifyScreen(
+            mobileNumber: state.pathParameters['mobileNumber'] ?? "",
+          );
+        },
       ),
 
       // GoRoute(

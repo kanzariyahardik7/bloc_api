@@ -14,7 +14,6 @@ class Login extends StatefulWidget {
 
 class _LoginState extends State<Login> {
   TextEditingController mobileNumberController = TextEditingController();
-  TextEditingController otpController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -72,34 +71,6 @@ class _LoginState extends State<Login> {
                           elevation: 1),
                       child: const MyText(
                         text: "get otp",
-                        color: white,
-                        fontsize: 14,
-                        fontweight: FontWeight.bold,
-                        latterSpacing: -0.04,
-                      ),
-                    ),
-                  ),
-                  inputField('OTP', otpController, isHide: true),
-                  SizedBox(
-                    height: MediaQuery.sizeOf(context).height * 0.05,
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.symmetric(
-                        horizontal: 15, vertical: 10),
-                    child: ElevatedButton(
-                      onPressed: () {
-                        verifyOtpApi();
-                      },
-                      style: ElevatedButton.styleFrom(
-                          padding: const EdgeInsets.symmetric(
-                              vertical: 5, horizontal: 45),
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(10),
-                          ),
-                          backgroundColor: kPrimaryColor,
-                          elevation: 1),
-                      child: const MyText(
-                        text: "Verify",
                         color: white,
                         fontsize: 14,
                         fontweight: FontWeight.bold,
@@ -180,14 +151,5 @@ class _LoginState extends State<Login> {
       "mobile_number": '+91${mobileNumberController.text.trim()}'
     };
     productBloc.add(LoginOtpGetEvent(map: map));
-  }
-
-  verifyOtpApi() {
-    final productBloc = BlocProvider.of<LoginBloc>(context);
-    Map<String, dynamic> map = {
-      "mobile_number": '+91${mobileNumberController.text.trim()}',
-      "otp": otpController.text.trim()
-    };
-    productBloc.add(LoginOtpVerifyEvent(context: context, map: map));
   }
 }

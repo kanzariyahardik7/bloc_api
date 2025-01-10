@@ -1,3 +1,4 @@
+import 'package:bloc_api/resource/user_preferences.dart';
 import 'package:bloc_api/universal_widgets/myimage.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
@@ -18,10 +19,16 @@ class _SplashScreenState extends State<SplashScreen> {
 
   Future<void> checkVideoPlayed() async {
     Future.delayed(
-      const Duration(seconds: 2),
-      () {
-        // context.pushReplacement("/login");
-        context.pushReplacement("/home");
+      const Duration(milliseconds: 1500),
+      () {},
+    );
+    await UserPreferences().getToken().then(
+      (value) {
+        if (value == "" || value.isEmpty) {
+          context.pushReplacement("/login");
+        } else {
+          context.pushReplacement("/home");
+        }
       },
     );
   }
