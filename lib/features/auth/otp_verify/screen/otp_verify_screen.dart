@@ -1,4 +1,4 @@
-import 'package:bloc_api/dependancy_injection/dependancy_injection.dart';
+import 'package:bloc_api/app_services/dependancy_injection/dependancy_injection.dart';
 import 'package:bloc_api/features/auth/otp_verify/bloc/otp_bloc.dart';
 import 'package:bloc_api/features/auth/otp_verify/bloc/otp_event.dart';
 import 'package:bloc_api/resource/colors.dart';

@@ -1,7 +1,7 @@
 import 'package:bloc_api/features/auth/register/screen/register_screen.dart';
 import 'package:bloc_api/features/home/home_screens.dart';
 import 'package:bloc_api/features/auth/login/screen/login_screen.dart';
-import 'package:bloc_api/features/master_products/master_products.dart';
+import 'package:bloc_api/features/master_products/screen/master_products_screen.dart';
 import 'package:bloc_api/features/music_list/music_list.dart';
 import 'package:bloc_api/features/auth/otp_verify/screen/otp_verify_screen.dart';
 import 'package:bloc_api/features/splash/splash_screen.dart';
@@ -21,7 +21,7 @@ class AppRouter {
       ),
       GoRoute(
         path: '/product',
-        builder: (context, state) => const MasterProducts(),
+        builder: (context, state) => const MasterProductsScreen(),
       ),
       GoRoute(
         path: '/login',

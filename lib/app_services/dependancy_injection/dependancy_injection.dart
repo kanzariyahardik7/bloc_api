@@ -27,7 +27,7 @@ void setupServiceLocator() {
   //-----------------------------------------------------------------------------------------
   // register
   getIt.registerLazySingleton<RegisterRepository>(
-    () => RegisterRepository(apiService: getIt<NetworkApiService>()),
+    () => RegisterRepository(networkApiService: getIt<NetworkApiService>()),
   );
   getIt.registerFactory<RegisterBloc>(
     () => RegisterBloc(registerRepository: getIt<RegisterRepository>()),

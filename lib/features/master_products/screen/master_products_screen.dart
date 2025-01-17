@@ -1,19 +1,18 @@
-import 'package:bloc_api/dependancy_injection/dependancy_injection.dart';
 import 'package:bloc_api/features/master_products/bloc/product_bloc.dart';
 import 'package:bloc_api/features/master_products/bloc/product_event.dart';
 import 'package:bloc_api/features/master_products/bloc/product_state.dart';
-import 'package:bloc_api/features/master_products/widget/porduct_item_widget.dart';
+import 'package:bloc_api/features/master_products/screen/widget/porduct_item_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-class MasterProducts extends StatefulWidget {
-  const MasterProducts({super.key});
+class MasterProductsScreen extends StatefulWidget {
+  const MasterProductsScreen({super.key});
 
   @override
-  State<MasterProducts> createState() => _MasterProductsState();
+  State<MasterProductsScreen> createState() => _MasterProductsScreenState();
 }
 
-class _MasterProductsState extends State<MasterProducts> {
+class _MasterProductsScreenState extends State<MasterProductsScreen> {
   late ProductBloc productBloc;
   ScrollController scrollController = ScrollController();
   @override
@@ -57,6 +56,7 @@ class _MasterProductsState extends State<MasterProducts> {
   @override
   void dispose() {
     super.dispose();
+    scrollController.dispose();
     productBloc.add(ResetProductEvent());
   }
 

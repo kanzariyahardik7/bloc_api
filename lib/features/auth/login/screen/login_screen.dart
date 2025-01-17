@@ -1,4 +1,4 @@
-import 'package:bloc_api/dependancy_injection/dependancy_injection.dart';
+import 'package:bloc_api/app_services/dependancy_injection/dependancy_injection.dart';
 import 'package:bloc_api/resource/colors.dart';
 import 'package:bloc_api/resource/utils.dart';
 import 'package:bloc_api/universal_widgets/mytext.dart';

@@ -3,6 +3,7 @@ import 'package:bloc_api/resource/api_response.dart';
 import 'package:bloc_api/features/master_products/repo/product_repository.dart';
 import 'package:bloc_api/features/master_products/bloc/product_event.dart';
 import 'package:bloc_api/features/master_products/bloc/product_state.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class ProductBloc extends Bloc<ProductEvent, ProductState> {
@@ -45,6 +46,7 @@ class ProductBloc extends Bloc<ProductEvent, ProductState> {
   }
 
   _resetProductEvent(ResetProductEvent event, Emitter<ProductState> emit) {
+    debugPrint("-----??? reset product list");
     productList = [];
     currentPage = 0;
     totalPages = 0;
