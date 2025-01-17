@@ -24,4 +24,14 @@ class Utils {
       return "0.0";
     }
   }
+
+  static bool validateMobile(String value) {
+    String pattern = r'(^(?:[+0]9)?[0-9]{10,12}$)';
+    RegExp regExp = RegExp(pattern);
+    if (regExp.hasMatch(value) == true) {
+      return true;
+    } else {
+      return false;
+    }
+  }
 }

@@ -5,7 +5,8 @@ abstract class LoginEvent extends Equatable {}
 
 class LoginOtpGetEvent extends LoginEvent {
   final Map<String, dynamic> map;
-  LoginOtpGetEvent({required this.map});
+  final BuildContext context;
+  LoginOtpGetEvent(this.context, {required this.map});
 
   @override
   List<Object?> get props => [map];

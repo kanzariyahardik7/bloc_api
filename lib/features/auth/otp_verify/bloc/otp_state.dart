@@ -1,4 +1,4 @@
-import 'package:bloc_api/features/login/model/otp_verification_model.dart';
+import 'package:bloc_api/features/auth/login/model/otp_verification_model.dart';
 import 'package:bloc_api/resource/api_response.dart';
 import 'package:equatable/equatable.dart';
 

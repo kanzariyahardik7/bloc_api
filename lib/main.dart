@@ -1,9 +1,9 @@
 import 'package:audio_service/audio_service.dart';
 import 'package:bloc_api/dependancy_injection/dependancy_injection.dart';
-import 'package:bloc_api/features/login/bloc/login_bloc.dart';
+import 'package:bloc_api/features/auth/login/bloc/login_bloc.dart';
 import 'package:bloc_api/features/master_products/bloc/product_bloc.dart';
 import 'package:bloc_api/features/music_details/audio_handler.dart';
-import 'package:bloc_api/features/otp_verify/bloc/otp_bloc.dart';
+import 'package:bloc_api/features/auth/otp_verify/bloc/otp_bloc.dart';
 import 'package:bloc_api/routes/app_router.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';

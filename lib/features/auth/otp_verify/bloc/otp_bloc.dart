@@ -1,6 +1,6 @@
-import 'package:bloc_api/features/otp_verify/bloc/otp_event.dart';
-import 'package:bloc_api/features/otp_verify/bloc/otp_state.dart';
-import 'package:bloc_api/features/otp_verify/repo/otp_repo.dart';
+import 'package:bloc_api/features/auth/otp_verify/bloc/otp_event.dart';
+import 'package:bloc_api/features/auth/otp_verify/bloc/otp_state.dart';
+import 'package:bloc_api/features/auth/otp_verify/repo/otp_repo.dart';
 import 'package:bloc_api/resource/api_response.dart';
 import 'package:bloc_api/resource/colors.dart';
 import 'package:bloc_api/resource/user_preferences.dart';
@@ -23,10 +23,11 @@ class OtpVerifyBloc extends Bloc<OtpEvent, OtpVerificationState> {
       if (value?.code == 200) {
         emit(OtpVerificationCompleteState(
             otpGetResponse: ApiResponse.completed(value)));
-        event.context.push("/otp-verify/${event.map["mobile_number"]}");
+        event.context.go("/home");
         UserPreferences().saveUser(value!.data!);
         Utils.toastMessage(value.message ?? "", success);
       } else {
+        emit(OtpVerificationInitState(otpGetResponse: ApiResponse.init()));
         Utils.toastMessage(value?.message ?? "", fail);
       }
     }).onError((error, stackTrace) {
@@ -42,10 +43,11 @@ class OtpVerifyBloc extends Bloc<OtpEvent, OtpVerificationState> {
       if (value?.code == 200) {
         emit(OtpVerificationCompleteState(
             otpGetResponse: ApiResponse.completed(value)));
-        event.context.push("/otp-verify/${event.map["mobile_number"]}");
+        event.context.go("/home");
         UserPreferences().saveUser(value!.data!);
         Utils.toastMessage(value.message ?? "", success);
       } else {
+        emit(OtpVerificationInitState(otpGetResponse: ApiResponse.init()));
         Utils.toastMessage(value?.message ?? "", fail);
       }
     }).onError((error, stackTrace) {

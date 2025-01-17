@@ -19,16 +19,17 @@ class _SplashScreenState extends State<SplashScreen> {
 
   Future<void> checkVideoPlayed() async {
     Future.delayed(
-      const Duration(milliseconds: 1500),
-      () {},
-    );
-    await UserPreferences().getToken().then(
-      (value) {
-        if (value == "" || value.isEmpty) {
-          context.pushReplacement("/login");
-        } else {
-          context.pushReplacement("/home");
-        }
+      const Duration(milliseconds: 1000),
+      () {
+        UserPreferences().getToken().then(
+          (value) {
+            if (value == "" || value.isEmpty) {
+              context.pushReplacement("/register");
+            } else {
+              context.pushReplacement("/home");
+            }
+          },
+        );
       },
     );
   }

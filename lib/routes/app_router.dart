@@ -1,9 +1,11 @@
+import 'package:bloc_api/features/auth/register/screen/register_screen.dart';
 import 'package:bloc_api/features/home/home_screens.dart';
-import 'package:bloc_api/features/login/screen/login.dart';
+import 'package:bloc_api/features/auth/login/screen/login_screen.dart';
 import 'package:bloc_api/features/master_products/master_products.dart';
 import 'package:bloc_api/features/music_list/music_list.dart';
-import 'package:bloc_api/features/otp_verify/screen/otp_verify_screen.dart';
+import 'package:bloc_api/features/auth/otp_verify/screen/otp_verify_screen.dart';
 import 'package:bloc_api/features/splash/splash_screen.dart';
+import 'package:bloc_api/resource/enums.dart';
 import 'package:go_router/go_router.dart';
 
 class AppRouter {
@@ -23,17 +25,23 @@ class AppRouter {
       ),
       GoRoute(
         path: '/login',
-        builder: (context, state) => const Login(),
+        builder: (context, state) => const LoginScreen(),
+      ),
+      GoRoute(
+        path: '/register',
+        builder: (context, state) => const RegisterScreen(),
       ),
       GoRoute(
         path: '/musiclist',
         builder: (context, state) => const MusicList(),
       ),
       GoRoute(
-        path: '/otp-verify/:mobileNumber',
+        path: '/otp-verify',
         builder: (context, state) {
+          final data = state.extra as Map<String, dynamic>;
           return OtpVerifyScreen(
-            mobileNumber: state.pathParameters['mobileNumber'] ?? "",
+            authScreen: data["authScreen"] as AuthScreen,
+            mobileNumber: data['mobileNumber'] ?? "",
           );
         },
       ),

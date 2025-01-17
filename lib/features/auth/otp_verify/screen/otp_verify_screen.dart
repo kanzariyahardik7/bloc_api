@@ -1,10 +1,16 @@
+import 'package:bloc_api/dependancy_injection/dependancy_injection.dart';
+import 'package:bloc_api/features/auth/otp_verify/bloc/otp_bloc.dart';
+import 'package:bloc_api/features/auth/otp_verify/bloc/otp_event.dart';
 import 'package:bloc_api/resource/colors.dart';
+import 'package:bloc_api/resource/enums.dart';
 import 'package:bloc_api/universal_widgets/mytext.dart';
 import 'package:flutter/material.dart';
 
 class OtpVerifyScreen extends StatefulWidget {
   final String mobileNumber;
-  const OtpVerifyScreen({super.key, required this.mobileNumber});
+  final AuthScreen authScreen;
+  const OtpVerifyScreen(
+      {super.key, required this.mobileNumber, required this.authScreen});
 
   @override
   State<OtpVerifyScreen> createState() => _OtpVerifyScreenState();
@@ -12,14 +18,25 @@ class OtpVerifyScreen extends StatefulWidget {
 
 class _OtpVerifyScreenState extends State<OtpVerifyScreen> {
   TextEditingController otpController = TextEditingController();
+
+  @override
+  void dispose() {
+    otpController.dispose();
+
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: Column(
         children: [
+          const SizedBox(
+            height: 100,
+          ),
           MyText(
-            text: "Mobile Number${widget.mobileNumber}",
-            color: white,
+            text: "Mobile Number = ${widget.mobileNumber}",
+            color: black,
             fontsize: 14,
             fontweight: FontWeight.bold,
             latterSpacing: -0.04,
@@ -115,11 +132,15 @@ class _OtpVerifyScreenState extends State<OtpVerifyScreen> {
   }
 
   verifyOtpApi() {
-    // final productBloc = BlocProvider.of<LoginBloc>(context);
-    // Map<String, dynamic> map = {
-    //   "mobile_number": '+91${mobileNumberController.text.trim()}',
-    //   "otp": otpController.text.trim()
-    // };
-    // productBloc.add(LoginOtpVerifyEvent(context: context, map: map));
+    final otpVerifyBloc = getIt<OtpVerifyBloc>();
+    Map<String, dynamic> map = {
+      "mobile_number": widget.mobileNumber,
+      "otp": otpController.text.trim()
+    };
+    if (widget.authScreen == AuthScreen.login) {
+      otpVerifyBloc.add(LoginOtpVerifyEvent(context: context, map: map));
+    } else {
+      otpVerifyBloc.add(RegisterOtpVerifyEvent(context: context, map: map));
+    }
   }
 }

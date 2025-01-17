@@ -1,19 +1,26 @@
+import 'package:bloc_api/dependancy_injection/dependancy_injection.dart';
 import 'package:bloc_api/resource/colors.dart';
+import 'package:bloc_api/resource/utils.dart';
 import 'package:bloc_api/universal_widgets/mytext.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:go_router/go_router.dart';
 import '../bloc/login_bloc.dart';
 import '../bloc/login_event.dart';
 
-class Login extends StatefulWidget {
-  const Login({super.key});
+class LoginScreen extends StatefulWidget {
+  const LoginScreen({super.key});
 
   @override
-  State<Login> createState() => _LoginState();
+  State<LoginScreen> createState() => _LoginScreenState();
 }
 
-class _LoginState extends State<Login> {
+class _LoginScreenState extends State<LoginScreen> {
   TextEditingController mobileNumberController = TextEditingController();
+  @override
+  void dispose() {
+    mobileNumberController.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -78,6 +85,17 @@ class _LoginState extends State<Login> {
                       ),
                     ),
                   ),
+                  const SizedBox(
+                    height: 50,
+                  ),
+                  TextButton(
+                      onPressed: () {
+                        context.pop();
+                      },
+                      child: const MyText(
+                        text: "Do not have an account? Register",
+                        color: black,
+                      ))
                 ],
               ),
             ),
@@ -146,10 +164,19 @@ class _LoginState extends State<Login> {
   }
 
   getOtpApi() {
-    final productBloc = BlocProvider.of<LoginBloc>(context);
+    final productBloc = getIt<LoginBloc>();
     Map<String, dynamic> map = {
       "mobile_number": '+91${mobileNumberController.text.trim()}'
     };
-    productBloc.add(LoginOtpGetEvent(map: map));
+
+    if (mobileNumberController.text.isEmpty) {
+      Utils.toastMessage("Please enter Mobile Number", fail);
+    } else if (Utils.validateMobile(mobileNumberController.text) == false) {
+      Utils.toastMessage("Enter valid  number", fail);
+    } else if (mobileNumberController.text.length < 10) {
+      Utils.toastMessage("Mobile number must have 10 digits", fail);
+    } else {
+      productBloc.add(LoginOtpGetEvent(map: map, context));
+    }
   }
 }
