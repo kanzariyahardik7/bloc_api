@@ -10,8 +10,7 @@ class ProductRepository {
       int businessid, Map<String, dynamic>? queryParameters) async {
     try {
       dynamic response = await networkApiService.getResponse(
-          "${ApiEndPoints().getMasterProductList}/$businessid",
-          queryParameters);
+          ApiEndPoints().productList, queryParameters);
       final jsonData = ProductListModel.fromJson(response);
       return jsonData;
     } catch (e) {

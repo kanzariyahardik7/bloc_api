@@ -12,4 +12,6 @@ class ApiEndPoints {
   final String getMasterProductList =
       "/master-product/vendor-business"; // without token
   final String vendorsSearch = '/vendor-business'; // withought token
+
+  final String productList = "/product";
 }

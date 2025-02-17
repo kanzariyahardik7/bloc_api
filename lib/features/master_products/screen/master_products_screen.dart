@@ -2,6 +2,8 @@ import 'package:bloc_api/features/master_products/bloc/product_bloc.dart';
 import 'package:bloc_api/features/master_products/bloc/product_event.dart';
 import 'package:bloc_api/features/master_products/bloc/product_state.dart';
 import 'package:bloc_api/features/master_products/screen/widget/porduct_item_widget.dart';
+import 'package:bloc_api/resource/api_response.dart';
+import 'package:bloc_api/universal_widgets/no_data.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -32,22 +34,22 @@ class _MasterProductsScreenState extends State<MasterProductsScreen> {
   fetchProduct() {
     productBloc.add(ResetProductEvent());
     productBloc.add(ProductFetchEvent(businessid: 26, queryParameters: {
-      "page": productBloc.currentPage + 1,
-      "limit": productBloc.limit,
+      "page": productBloc.state.currentPage! + 1,
+      "limit": productBloc.state.limit,
     }));
   }
 
   loadMore() {
     productBloc.add(ProductFetchEvent(businessid: 26, queryParameters: {
-      "page": productBloc.currentPage + 1,
-      "limit": productBloc.limit,
+      "page": productBloc.state.currentPage! + 1,
+      "limit": productBloc.state.limit,
     }));
   }
 
   _scrollListener() {
     if (scrollController.position.pixels ==
         (scrollController.position.maxScrollExtent)) {
-      if (productBloc.currentPage < productBloc.totalPages) {
+      if (productBloc.state.currentPage! < productBloc.state.totalPages!) {
         loadMore();
       }
     }
@@ -71,36 +73,41 @@ class _MasterProductsScreenState extends State<MasterProductsScreen> {
             style: TextStyle(color: Colors.white, fontSize: 18),
           ),
         ),
-        body: BlocConsumer<ProductBloc, ProductState>(
-          listener: (context, state) {
-            if (state is ProductErrorState) {
-              ScaffoldMessenger.of(context).showSnackBar(
-                SnackBar(
-                    content: Text(state.productListResponse.message ?? "")),
-              );
-            }
-          },
+        body: BlocBuilder<ProductBloc, ProductState>(
           builder: (context, state) {
-            if (state is ProductLoadingState) {
+            if (state.currentPage == 0 &&
+                state.productListResponse?.status == Status.loading) {
               return const Center(child: CircularProgressIndicator());
-            } else if (state is ProductLoadedState) {
-              return SingleChildScrollView(
-                  padding: const EdgeInsets.all(12),
-                  physics: const ClampingScrollPhysics(),
-                  child: ListView.separated(
-                    shrinkWrap: true,
-                    itemCount: state.productList.length,
-                    physics: const NeverScrollableScrollPhysics(),
-                    separatorBuilder: (context, index) {
-                      return const SizedBox(height: 15);
-                    },
-                    itemBuilder: (context, index) {
-                      return PorductItemWidget(
-                          productItemData: state.productList[index]);
-                    },
-                  ));
             } else {
-              return const SizedBox.shrink();
+              if (state.productListResponse?.status == Status.completed &&
+                  state.productList!.isEmpty) {
+                return const NoData();
+              } else {
+                return SingleChildScrollView(
+                    controller: scrollController,
+                    padding: const EdgeInsets.all(12),
+                    physics: const ClampingScrollPhysics(),
+                    child: Column(
+                      children: [
+                        ListView.separated(
+                          shrinkWrap: true,
+                          itemCount: state.productList!.length,
+                          physics: const NeverScrollableScrollPhysics(),
+                          separatorBuilder: (context, index) {
+                            return const SizedBox(height: 15);
+                          },
+                          itemBuilder: (context, index) {
+                            return PorductItemWidget(
+                                productItemData: state.productList![index]);
+                          },
+                        ),
+                        state.currentPage! < state.totalPages!
+                            ? const CircularProgressIndicator()
+                            : const SizedBox.shrink(),
+                        const SizedBox(height: 80),
+                      ],
+                    ));
+              }
             }
           },
         ));
